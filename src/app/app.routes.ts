@@ -8,5 +8,4 @@ export const routes: Routes = [
   { path: 'fleet', component: FleetOverviewComponent },
   
   { path: 'fleet/:id/requirements', component: VesselRequirementsComponent },
-  { path: '**', redirectTo: 'fleet' }
 ];
