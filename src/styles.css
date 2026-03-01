@@ -1,0 +1,218 @@
+/* ==========================================================================
+   GLOBAL DESIGN SYSTEM (styles.css)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* --- Colors: Primary & Secondary --- */
+  --primary-color: #0EA5E9;       /* Sky Blue */
+  --primary-hover: #0284C7;
+  --secondary-color: #F1F5F9;     /* Light grayish blue for secondary buttons/bg */
+  --secondary-hover: #E2E8F0;
+
+  /* --- Colors: Background & Surface --- */
+  --bg-main: #F8FAFC;             /* Overall app background */
+  --surface-white: #FFFFFF;       /* Card & Table background */
+  --border-color: #E2E8F0;
+
+  /* --- Colors: Typography --- */
+  --text-primary: #0F172A;        /* Headings & main text */
+  --text-secondary: #64748B;      /* Subtitles, table headers, icons */
+  --text-tertiary: #94A3B8;       /* Disabled text, placeholders */
+
+  /* --- Colors: Status --- */
+  --status-active-text: #059669;
+  --status-active-bg: #D1FAE5;
+  --status-warning-text: #D97706;
+  --status-warning-bg: #FEF3C7;
+
+  /* --- Typography: Font Family & Sizes --- */
+  --font-family: 'Inter', sans-serif;
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;  /* 14px */
+  --text-base: 1rem;    /* 16px */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.25rem;   /* 20px */
+  --text-2xl: 1.5rem;   /* 24px */
+
+  /* --- Spacing & Radii --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Base HTML Tag Reset --- */
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; color: var(--text-primary); font-weight: 600; }
+h1 { font-size: var(--text-2xl); line-height: 1.2; }
+h2 { font-size: var(--text-xl); }
+h3 { font-size: var(--text-lg); }
+p { margin: 0; font-size: var(--text-base); color: var(--text-secondary); }
+
+/* --- Global Cards --- */
+.card {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* --- Global Button Styles --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+  white-space: nowrap;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--surface-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover { background-color: var(--primary-hover); box-shadow: var(--shadow-md); }
+
+.btn-outline {
+  background-color: var(--surface-white);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-outline:hover { background-color: var(--bg-main); border-color: #CBD5E1; }
+
+/* ========================================= */
+/* COMMON FORM ELEMENTS                      */
+/* ========================================= */
+.form-group { margin-bottom: 20px; }
+
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background-color: var(--surface-white);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+/* ========================================= */
+/* RESPONSIVE GLOBALS                        */
+/* ========================================= */
+@media (max-width: 768px) {
+  h1 { font-size: var(--text-xl); }
+  .btn { padding: 8px 12px; }
+}
+.drawer-panel { right: -450px; transition: right 0.3s; }
+.drawer-panel.open { right: 0; }
+
+
+
+/* Ensures the Material Overlay is on top of everything */
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 9999 !important;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* src/styles.css */
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  display: none;
+}
+.drawer-overlay.open { display: block; }
+
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: -500px;
+  width: 500px;
+  height: 100vh;
+  background: var(--surface-white);
+  box-shadow: var(--shadow-md);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease-in-out;
+}
+.drawer-panel.open { right: 0; }
+
+.drawer-header { padding: 24px 32px; border-bottom: 1px solid var(--border-color); background: var(--bg-main); }
+.drawer-body { padding: 32px; flex: 1; overflow-y: auto; }
+.drawer-footer { padding: 20px 32px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 12px; }
+
+/* Responsive logic */
+@media (max-width: 768px) {
+  .drawer-panel { width: 100%; right: -100%; }
+}

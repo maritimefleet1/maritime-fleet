@@ -1,0 +1,386 @@
+/* ==========================================================================
+   VESSEL INVENTORY STYLES - PROFESSIONAL & CLEAN
+   ========================================================================== */
+
+.vessel-dashboard {
+    --primary-blue: #0EA5E9;
+    --primary-hover: #0284C7;
+    --text-main: #0F172A;
+    --text-secondary: #475569;
+    --text-tertiary: #94A3B8;
+    --status-green: #10B981;
+    --status-red: #EF4444;
+    --status-red-bg: #FEE2E2;
+    --bg-app: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --border-light: #E2E8F0;
+    --border-softer: #F1F5F9;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+}
+
+/* ========================================= */
+/* UTILITIES                                 */
+/* ========================================= */
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.text-right { text-align: right; }
+.text-tertiary { color: var(--text-tertiary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.pr-32 { padding-right: 32px !important; }
+
+/* ========================================= */
+/* PAGE HEADER                               */
+/* ========================================= */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 16px 24px 12px 24px;
+    margin-bottom: 8px;
+}
+
+.header-titles h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Global Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn mat-icon { font-size: 18px; width: 18px; height: 18px; }
+
+.btn-primary { background-color: var(--primary-blue); color: white; }
+.btn-primary:hover { background-color: var(--primary-hover); box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); }
+
+.btn-outline { background-color: var(--bg-surface); border-color: var(--border-light); color: var(--text-main); }
+.btn-outline:hover { background-color: var(--bg-app); border-color: #CBD5E1; }
+
+/* ========================================= */
+/* SHEET NAVIGATION (TABS & SEARCH)          */
+/* ========================================= */
+.sheet-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 24px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.tabs-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: -2px; /* Pulls active border down over the container border */
+}
+
+.sheet-tab {
+    padding: 12px 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s;
+}
+
+.sheet-tab:hover { color: var(--text-secondary); }
+.sheet-tab.active { color: var(--primary-blue); border-bottom-color: var(--primary-blue); }
+
+.add-sheet-btn {
+    background-color: var(--bg-app);
+    color: var(--text-secondary);
+    border: 1px dashed #CBD5E1;
+    border-radius: 6px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 12px;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+}
+
+.add-sheet-btn mat-icon { font-size: 16px; width: 16px; height: 16px; }
+.add-sheet-btn:hover { background-color: #EFF6FF; color: var(--primary-blue); border-color: var(--primary-blue); }
+
+.nav-actions { margin-bottom: 10px; }
+
+/* Compact Search Box */
+.compact-search { position: relative; width: 240px; }
+.compact-search .search-icon {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--text-tertiary); font-size: 18px; width: 18px; height: 18px;
+}
+.compact-search input {
+    width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--border-light);
+    border-radius: 6px; font-size: 13px; outline: none; background: var(--bg-surface);
+    transition: border-color 0.2s;
+}
+.compact-search input:focus { border-color: var(--primary-blue); }
+
+/* ========================================= */
+/* DATA TABLE (MATERIAL OVERRIDES)           */
+/* ========================================= */
+.table-card {
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.table-responsive {
+    max-height: calc(100vh - 230px);
+    overflow: auto;
+}
+
+::ng-deep .vessel-dashboard table.mat-mdc-table { width: 100%; border-collapse: collapse; }
+
+::ng-deep .vessel-dashboard th.mat-mdc-header-cell {
+    background: var(--bg-surface) !important;
+    color: var(--text-tertiary) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--border-light) !important;
+    padding: 12px 16px !important;
+    z-index: 100 !important; /* For Sticky Header */
+}
+
+::ng-deep .vessel-dashboard td.mat-mdc-cell {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--border-softer) !important;
+    font-size: 13px !important;
+    color: var(--text-main) !important;
+}
+
+/* Row Sizing & Hover */
+.data-table .mat-row, .data-table .mat-header-row { min-height: 48px !important; height: 48px !important; }
+.element-row { cursor: pointer; transition: background-color 0.2s; }
+.element-row:hover td.mat-mdc-cell { background-color: var(--bg-app) !important; }
+.element-row.expanded-row td.mat-mdc-cell { border-bottom: none !important; }
+
+/* Table Columns & Badges */
+.col-expand { width: 48px; padding-left: 16px !important; padding-right: 0 !important; }
+.col-srno { width: 64px; }
+.item-name { font-weight: 600; color: var(--text-main); }
+.pending-badge { background-color: var(--status-red-bg); color: var(--status-red); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+
+.chevron-icon { color: var(--text-tertiary); transition: transform 0.2s; font-size: 22px; width: 22px; height: 22px; }
+.chevron-icon.rotated { transform: rotate(90deg); color: var(--text-main); }
+
+/* Row Action Button */
+.table-action-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 12px;
+    background-color: #F0F9FF; color: var(--primary-hover); border: 1px solid #BAE6FD;
+    border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; height: 30px; transition: all 0.2s;
+}
+.table-action-btn:hover { background-color: var(--primary-blue); color: white; border-color: var(--primary-blue); }
+.table-action-btn mat-icon { font-size: 16px; width: 16px; height: 16px; }
+
+/* ========================================= */
+/* EXPANDED NESTED HISTORY                   */
+/* ========================================= */
+tr.detail-row { height: 0; }
+::ng-deep .vessel-dashboard .expanded-cell-wrapper { padding: 0 !important; border-bottom: 1px solid var(--border-light) !important; }
+.expanded-content { overflow: hidden; background-color: var(--bg-app); }
+.nested-history-wrapper { padding: 16px 24px 24px 76px; }
+
+.nested-history-box {
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-surface);
+    max-height: 280px;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.nested-header {
+    padding: 12px 16px; background-color: var(--bg-surface); border-bottom: 1px solid var(--border-light);
+    display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10;
+}
+
+.nested-header-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+.check-icon { color: var(--status-green); font-size: 18px; width: 18px; height: 18px; }
+
+/* Mini Progress Bar */
+.nested-header-progress { display: flex; align-items: center; gap: 12px; }
+.progress-label { font-size: 11px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; }
+.mini-progress-track { width: 80px; height: 6px; background-color: var(--bg-app); border-radius: 4px; overflow: hidden; }
+.mini-progress-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+.bg-primary { background-color: var(--primary-blue); } .bg-success { background-color: var(--status-green); }
+
+/* Nested Table */
+.nested-table { width: 100%; border-collapse: collapse; }
+.nested-table th { position: sticky; top: 43px; background: var(--bg-app); text-align: left; padding: 10px 16px; font-size: 11px; color: var(--text-tertiary); font-weight: 600; border-bottom: 1px solid var(--border-light); z-index: 9; }
+.nested-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid var(--border-softer); }
+
+.delivered-by { display: flex; align-items: center; gap: 8px; }
+.tiny-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #1E293B; }
+.empty-history { display: flex; align-items: center; gap: 8px; color: var(--text-tertiary); font-size: 13px; padding: 20px; }
+
+/* ========================================= */
+/* FOOTER & PAGINATION                       */
+/* ========================================= */
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-light);
+}
+
+.results-text { font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
+
+.footer-controls { display: flex; align-items: center; gap: 24px; }
+.page-size-selector { display: flex; align-items: center; gap: 8px; }
+.filter-label { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; }
+.form-select { height: 32px; border-radius: 6px; border: 1px solid var(--border-light); padding: 0 10px; font-size: 13px; outline: none; background-color: var(--bg-surface); cursor: pointer; }
+
+.pagination { display: flex; gap: 6px; }
+.page-btn {
+    min-width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-light); background: var(--bg-surface); border-radius: 6px;
+    font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--text-secondary);
+}
+.page-btn mat-icon { font-size: 18px; width: 18px; height: 18px; }
+.page-btn:hover:not(.disabled) { background: var(--bg-app); border-color: #CBD5E1; color: var(--text-main); }
+.page-btn.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
+.page-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ========================================= */
+/* EMPTY STATE                               */
+/* ========================================= */
+.empty-state-container {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 20px; color: var(--text-tertiary); text-align: center;
+}
+.empty-state-container mat-icon { font-size: 48px; width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5; }
+.empty-state-container h3 { font-size: 18px; color: var(--text-main); margin: 0 0 8px 0; font-weight: 600; }
+.empty-state-container p { margin: 0 0 24px 0; font-size: 14px; color: var(--text-secondary); }
+
+/* ========================================= */
+/* LOADING STATE                             */
+/* ========================================= */
+.loading-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    color: var(--text-tertiary);
+}
+
+.loading-state-container p {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-light);
+    border-top: 3px solid var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========================================= */
+/* PRINT STYLES                              */
+/* ========================================= */
+.print-container {
+    display: none; /* Always hidden on the screen */
+}
+
+@media print {
+    /* Hide the entire application UI */
+    .page-header, .sheet-navigation, .table-card, .toolbar, app-add-item {
+        display: none !important;
+    }
+.cdk-overlay-container { display: none !important; }
+    /* Show only the print container */
+    .print-container {
+        display: block !important;
+        width: 100%;
+        color: #000;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Print Header Formatting */
+    .print-header { margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+    .print-header h2 { margin: 0 0 10px 0; font-size: 24px; }
+    .print-meta { display: flex; justify-content: space-between; font-size: 12px; }
+    .print-meta p { margin: 0; }
+
+    /* Print Table Formatting */
+    .print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
+    .print-table th, .print-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    .print-table th { background-color: #f5f5f5 !important; -webkit-print-color-adjust: exact; font-weight: bold; }
+    
+    .print-item-row { background-color: #fafafa !important; -webkit-print-color-adjust: exact; }
+    
+    /* Nested History Table Formatting */
+    .print-history-cell { padding: 5px 20px 15px 40px !important; border-top: none !important; }
+    .print-history-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .print-history-table th, .print-history-table td { border: 1px solid #eee; padding: 4px 8px; }
+    .print-history-table th { background-color: #fff !important; color: #332c2c; text-transform: uppercase; }
+    
+    /* Page break handling so rows don't split awkwardly across pages */
+    .print-item-row, .print-history-cell { page-break-inside: avoid; }
+    .bold-text {
+        font-weight: 700 !important;
+    }
+
+    .print-table th {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+        text-transform: uppercase;
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    /* Ensure the table uses the full page width for the extra columns */
+    .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: auto; 
+    }
+}

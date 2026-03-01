@@ -1,0 +1,62 @@
+<div class="drawer-overlay" [class.open]="isOpen" (click)="closeDrawer()"></div>
+
+<div class="drawer-panel" [class.open]="isOpen">
+  
+  <div class="drawer-header">
+    <h2>{{ editData ? 'Edit Vessel' : 'Add New Vessel' }}</h2>
+    <button mat-icon-button (click)="closeDrawer()" [disabled]="isSubmitting">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="drawer-body">
+    <div class="form-group">
+      <label class="form-label">Vessel Name <span style="color: red;">*</span></label>
+      <input 
+        type="text" 
+        class="form-control" 
+        [(ngModel)]="vesselName" 
+        placeholder="e.g. MV Oceanic Horizon"
+        [disabled]="isSubmitting">
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">IMO Number</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        [(ngModel)]="imoNumber" 
+        placeholder="e.g. 9123456"
+        [disabled]="isSubmitting">
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Vessel Type</label>
+      <select class="form-control" [(ngModel)]="vesselType" [disabled]="isSubmitting">
+        <option value="Container Ship">Container Ship</option>
+        <option value="Oil Tanker">Oil Tanker</option>
+        <option value="Bulk Carrier">Bulk Carrier</option>
+        <option value="LNG Carrier">LNG Carrier</option>
+        <option value="Ro-Ro Ship">Ro-Ro Ship</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="drawer-footer">
+    <button 
+      class="btn btn-outline" 
+      (click)="closeDrawer()" 
+      [disabled]="isSubmitting">
+      Cancel
+    </button>
+    
+    <button 
+      class="btn btn-primary" 
+      (click)="saveVessel()" 
+      [disabled]="isSubmitting">
+      <span *ngIf="isSubmitting">Processing...</span>
+      <span *ngIf="!isSubmitting">{{ editData ? 'Update Vessel' : 'Save Vessel' }}</span>
+    </button>
+  </div>
+
+</div>

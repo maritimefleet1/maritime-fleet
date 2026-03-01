@@ -1,0 +1,278 @@
+<div class="vessel-dashboard">
+    <div class="page-header">
+        <div class="header-titles">
+            <h1>Vessel Inventory ({{ vesselName }})</h1>
+            <p class="subtitle">Monitoring inventory status for IMO #{{ voyageNumber }}</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-outline" (click)="generatePrintReport()"><mat-icon>download</mat-icon> Export CSV</button>
+            <button class="btn btn-primary" (click)="addItem()"><mat-icon>add</mat-icon> New Requisition</button>
+        </div>
+    </div>
+
+    <div class="sheet-navigation">
+        <div class="tabs-wrapper">
+            <div class="sheet-tab" *ngFor="let sheet of sheets" 
+                 [class.active]="activeSheet?.id === sheet.id"
+                 (click)="selectSheet(sheet)">
+                {{ sheet.name }}
+            </div>
+            
+            <button class="add-sheet-btn" (click)="addSheet()" matTooltip="Create new sheet">
+                <mat-icon>add</mat-icon> Add Sheet
+            </button>
+        </div>
+        
+        <!-- <div class="nav-actions">
+            <div class="compact-search">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" placeholder="Search items...">
+            </div>
+        </div> -->
+    </div>
+
+    <div class="card table-card">
+        
+        <div class="table-responsive">
+            
+            <div class="loading-state-container" *ngIf="isLoadingItems">
+                <div class="spinner"></div>
+                <p>Fetching inventory data...</p>
+            </div>
+
+            <table mat-table [dataSource]="activeSheet?.data || []"
+                *ngIf="!isLoadingItems && activeSheet?.data && activeSheet.data.length > 0" multiTemplateDataRows class="data-table">
+
+                <ng-container matColumnDef="expand">
+                    <th mat-header-cell *matHeaderCellDef class="col-expand"></th>
+                    <td mat-cell *matCellDef="let element" class="col-expand">
+                        <mat-icon class="chevron-icon" [class.rotated]="expandedElement?.id === element.id">
+                            chevron_right
+                        </mat-icon>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="srNo">
+                    <th mat-header-cell *matHeaderCellDef class="col-srno"> SR NO. </th>
+                    <td mat-cell *matCellDef="let element" class="text-tertiary"> {{element.srNo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="itemName">
+                    <th mat-header-cell *matHeaderCellDef> ITEM NAME </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span class="item-name">{{ element.name }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="deliveryDate">
+                    <th mat-header-cell *matHeaderCellDef> DELIVERY DATE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deliveryDate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef class="text-right pr-32"> PRICE PER ITEM </th>
+                    <td mat-cell *matCellDef="let element" class="text-right pr-32"> {{element.price}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="requested">
+                    <th mat-header-cell *matHeaderCellDef> REQ. QTY </th>
+                    <td mat-cell *matCellDef="let element"> {{element.requested}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="unit">
+                    <th mat-header-cell *matHeaderCellDef> UNIT </th>
+                    <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pending">
+                    <th mat-header-cell *matHeaderCellDef> PENDING QTY </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span [ngClass]="element.pending > 0 ? 'pending-badge' : 'text-tertiary fw-600'">
+                            {{element.pending}}
+                        </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> ACTION </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <button class="table-action-btn" (click)="openDeliveryModal($event, element)">
+                            <mat-icon>move_to_inbox</mat-icon>
+                            <span>Receive</span>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdOn">
+                    <th mat-header-cell *matHeaderCellDef class="text-right pr-32"> CREATED ON </th>
+                    <td mat-cell *matCellDef="let element" class="text-right pr-32"> {{element.createdOn | date:'short'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length"
+                        class="expanded-cell-wrapper">
+                        <div class="expanded-content" [@detailExpand]="element.id === expandedElement?.id ? 'expanded' : 'collapsed'">
+                            
+                            <div class="nested-history-wrapper" *ngIf="element.history?.length > 0">
+                                <div class="nested-history-box">
+                                    <div class="nested-header">
+                                        <div class="nested-header-title">
+                                            <mat-icon class="check-icon">check_circle</mat-icon>
+                                            <span>Delivery History Logs</span>
+                                        </div>
+                                        <div class="nested-header-progress">
+                                            <span class="progress-label">Received:</span>
+                                            <span class="progress-numbers fw-700">
+                                                {{ element.delivered }} / {{ element.requested }} <span style="font-size: 11px; color: var(--text-secondary);">{{ element.unit }}</span>
+                                            </span>
+                                            <div class="mini-progress-track">
+                                                <div class="mini-progress-fill"
+                                                    [style.width.%]="getProgressPercentage(element.delivered, element.requested)"
+                                                    [ngClass]="element.delivered >= element.requested ? 'bg-success' : 'bg-primary'">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="nested-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Qty Received</th>
+                                                <th>Authorized By</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let h of element.history">
+                                                <td class="text-secondary">{{ h.date }}</td>
+                                                <td class="fw-700">{{ h.quantity }}</td>
+                                                <td>
+                                                    <div class="delivered-by">
+                                                        <div class="tiny-avatar" [style.background-color]="h.color">{{ h.initials }}</div>
+                                                        <div class="person-info">
+                                                            <span class="p-name">{{ h.deliveredBy }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="text-secondary">{{ h.receipt }}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="nested-history-wrapper" *ngIf="(!element.history || element.history.length === 0) && element.pending > 0">
+                                <div class="empty-history">
+                                    <mat-icon>pending_actions</mat-icon>
+                                    <span>Awaiting first delivery shipment.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+                    [class.expanded-row]="expandedElement?.id === element.id" (click)="toggleRow(element)">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+            </table>
+
+            <div class="empty-state-container" *ngIf="!isLoadingItems && (!activeSheet?.data || activeSheet.data.length === 0)">
+                <mat-icon>inventory_2</mat-icon>
+                <h3>No Items Found</h3>
+                <p>This category is currently empty. Add a new requirement to get started.</p>
+                <button class="btn btn-primary" (click)="addItem()">
+                    <mat-icon>add</mat-icon> Add First Item
+                </button>
+            </div>
+        </div>
+
+        <div class="table-footer" *ngIf="!isLoadingItems && activeSheet?.data && activeSheet.data.length > 0">
+            <div class="results-text">
+                SHOWING {{ activeSheet.data.length }} OF {{ totalItems }} ITEMS
+            </div>
+            
+            <div class="footer-controls">
+                <div class="page-size-selector">
+                    <span class="filter-label">Rows:</span>
+                    <select class="form-select" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                        <option [value]="10">10</option>
+                        <option [value]="50">50</option>
+                        <option [value]="200">200</option>
+                    </select>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn" [disabled]="currentPage === 0" (click)="changePage(currentPage - 1)">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
+                    
+                    <button *ngFor="let p of pages" class="page-btn" [class.active]="currentPage === p" (click)="changePage(p)">
+                        {{ p + 1 }}
+                    </button>
+                    
+                    <button class="page-btn" [disabled]="currentPage >= totalPages - 1" (click)="changePage(currentPage + 1)">
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<app-add-item [isOpen]="isSidebarOpen" [vesselId]="vesselId" [activeSheet]="activeSheet" (close)="isSidebarOpen = false" (itemAdded)="loadItems()"></app-add-item>
+
+<div class="print-container" *ngIf="isPrinting">
+    <div class="print-header">
+        <h2>Vessel Inventory Report</h2>
+        <div class="print-meta">
+            <p><strong>Vessel:</strong> {{ vesselName }} (IMO: {{ voyageNumber }})</p>
+            <p><strong>Sheet:</strong> {{ activeSheet.name }}</p>
+            <p><strong>Date Printed:</strong> {{ today | date:'dd-MMM-yyyy HH:mm' }}</p>
+        </div>
+    </div>
+
+   <table class="print-table">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Requested</th>
+                <th>Delivered</th>
+                <th>Pending</th>
+                <th>Unit</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <ng-container *ngFor="let item of printData">
+                <tr class="print-item-row">
+                    <td><strong>{{ item.itemName }}</strong><br><span style="font-size: 10px; color: #666;">{{ item.remarks }}</span></td>
+                    <td>{{ item.requestedQty }}</td>
+                    <td>{{ item.deliveredQty }}</td>
+                    <td><strong>{{ item.pendingQty }}</strong></td>
+                    <td>{{ item.unit }}</td>
+                </tr>
+                
+                <tr *ngIf="item.history && item.history.length > 0">
+                    <td colspan="5" class="print-history-cell">
+                        <table class="print-history-table">
+                            <tr>
+                                <th>Delivery Date</th>
+                                <th>Qty Received</th>
+                                <th>Authorized By</th>
+                                <th>Receipt / Remarks</th>
+                            </tr>
+                            <tr *ngFor="let log of item.history">
+                                <td>{{ log.deliveryDate }}</td>
+                                <td>{{ log.deliveredQty || log.quantity }}</td>
+                                <td>{{ log.sanctionedBy || log.deliveredBy || 'N/A' }}</td>
+                                <td>{{ log.remarks || log.receipt || '-' }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody> </table>
+</div>

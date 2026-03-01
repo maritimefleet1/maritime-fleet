@@ -1,0 +1,82 @@
+<div class="page-header">
+  <div>
+    <h1>Fleet Overview</h1>
+    <p>Manage inventory across the globe.</p>
+  </div>
+  <button class="btn btn-primary" (click)="openAddVesselDrawer()">
+    <mat-icon>add</mat-icon> Add Vessel
+  </button>
+</div>
+
+<div class="card filter-card">
+  <div class="filter-actions" style="display: flex; gap: 15px; width: 100%;">
+    <div class="search-box" style="flex: 2;">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input type="text" placeholder="Search by Vessel Name" (keyup)="onSearch($event)">
+    </div>
+    
+    <select class="form-select" (change)="onStatusFilterChange($event)" style="flex: 1;">
+      <option value="Active" selected>Active Fleet</option>
+      <option value="Deleted">Archived (Deleted)</option>
+      <option value="ALL">Show All Records</option>
+    </select>
+  </div>
+</div>
+
+<div class="card table-card">
+  <table mat-table [dataSource]="dataSource" class="data-table">
+    <ng-container matColumnDef="vesselName">
+      <th mat-header-cell *matHeaderCellDef> VESSEL NAME </th>
+      <td mat-cell *matCellDef="let v">
+        <div class="vessel-cell">
+          <mat-icon>directions_boat</mat-icon>
+          <div class="vessel-info">
+            <a class="vessel-name" (click)="viewVesselDetails(v)" style="cursor: pointer;">{{ v.name }}</a>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> TYPE </th>
+      <td mat-cell *matCellDef="let v"> {{ v.type }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="imo">
+      <th mat-header-cell *matHeaderCellDef> IMO </th>
+      <td mat-cell *matCellDef="let v"> {{ v.imo }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> STATUS </th>
+      <td mat-cell *matCellDef="let v">
+        <span class="status-badge" [ngClass]="v.status.toLowerCase()">{{ v.status }}</span>
+      </td>
+    </ng-container>
+<ng-container matColumnDef="createdOn">
+      <th mat-header-cell *matHeaderCellDef> CREATED ON </th>
+      <td mat-cell *matCellDef="let v">
+        <span [ngClass]="v.status.toLowerCase()">{{ v.createdOn | date:'medium' }}</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right"> ACTIONS </th>
+      <td mat-cell *matCellDef="let v" class="text-right">
+        <button mat-icon-button color="primary" (click)="openEditDrawer(v)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="onDelete(v.id)"><mat-icon>delete</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" (page)="handlePageEvent($event)"></mat-paginator>
+</div>
+
+<app-add-vessel 
+  [isOpen]="isAddVesselOpen" 
+  [editData]="selectedVessel"
+  (close)="closeAddVesselDrawer()"
+  (vesselSaved)="onVesselAdded()"> 
+</app-add-vessel>

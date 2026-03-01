@@ -1,0 +1,38 @@
+<header class="top-navbar">
+  <div class="nav-left">
+    
+    <button class="icon-btn mobile-menu-btn" (click)="toggleMenu()">
+      <span class="material-icons">{{ isMobileMenuOpen ? 'close' : 'menu' }}</span>
+    </button>
+
+    <div class="logo">
+      <div class="logo-circle">🌊</div>
+      <div class="logo-text">
+        <span class="brand">Maritime Ops</span>
+        <span class="role desktop-only">Vessel Admin</span>
+      </div>
+    </div>
+
+    <nav class="main-menu" [class.open]="isMobileMenuOpen">
+      <!-- <a href="#" class="nav-link" (click)="closeMenu()">Dashboard</a> -->
+      <a href="#" class="nav-link active" (click)="closeMenu()">Fleet</a>
+      <a href="#" class="nav-link" (click)="closeMenu()">Reports</a>
+      <!-- <a href="#" class="nav-link" (click)="closeMenu()">Procurement</a>
+      <a href="#" class="nav-link" (click)="closeMenu()">Settings</a> -->
+    </nav>
+  </div>
+
+  <div class="nav-right">
+    <button class="icon-btn notification-btn">
+      <span class="material-icons">notifications</span>
+      <span class="badge"></span>
+    </button>
+    <div class="user-profile">
+      <div class="avatar">VA</div>
+      <span class="user-name desktop-only">Vessel Admin</span>
+      <span class="material-icons dropdown-icon desktop-only">expand_more</span>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-overlay" *ngIf="isMobileMenuOpen" (click)="closeMenu()"></div>

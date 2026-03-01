@@ -1,0 +1,121 @@
+/* --- Base Desktop Styles --- */
+.top-navbar {
+  height: 64px;
+  background-color: var(--surface-white);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-circle {
+  width: 40px; height: 40px; background-color: #E0F2FE;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 20px;
+}
+.logo-text { display: flex; flex-direction: column; }
+.brand { font-weight: 600; color: var(--text-primary); font-size: var(--text-base); }
+.role { font-size: var(--text-xs); color: var(--text-secondary); }
+
+.main-menu {
+  display: flex;
+  gap: 24px;
+  margin-left: 24px;
+}
+
+.nav-link {
+  text-decoration: none; color: var(--text-secondary);
+  font-weight: 500; font-size: var(--text-sm);
+  padding: 8px 12px; border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+.nav-link:hover { background-color: var(--bg-main); color: var(--text-primary); }
+.nav-link.active { background-color: #E0F2FE; color: var(--primary-hover); }
+
+/* --- Icon & Profile Styles --- */
+.icon-btn {
+  background: none; border: none; color: var(--text-secondary);
+  cursor: pointer; display: flex; align-items: center; padding: 4px;
+}
+.notification-btn { position: relative; }
+.notification-btn .badge {
+  position: absolute; top: 2px; right: 4px; width: 8px; height: 8px;
+  background-color: #EF4444; border-radius: 50%; border: 2px solid var(--surface-white);
+}
+
+.user-profile {
+  display: flex; align-items: center; gap: 8px; padding: 6px 12px;
+  border: 1px solid var(--border-color); border-radius: 20px; cursor: pointer;
+}
+.avatar {
+  width: 28px; height: 28px; background-color: var(--bg-main);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: var(--text-xs); font-weight: 600; color: var(--text-secondary);
+}
+.user-name { font-size: var(--text-sm); font-weight: 500; color: var(--text-primary); }
+.dropdown-icon { font-size: 18px; color: var(--text-tertiary); }
+
+/* Hide mobile elements on desktop */
+.mobile-menu-btn { display: none; }
+.mobile-overlay { display: none; }
+
+
+/* ========================================= */
+/* MOBILE RESPONSIVE LAYOUT                  */
+/* ========================================= */
+@media (max-width: 992px) {
+  .top-navbar {
+    padding: 0 16px; /* Less padding on small screens */
+  }
+  
+  .nav-left { gap: 16px; }
+  .nav-right { gap: 16px; }
+
+  /* Hide textual elements to save space */
+  .desktop-only { display: none !important; }
+
+  /* Show Hamburger Icon */
+  .mobile-menu-btn { display: flex; }
+
+  /* Morph Horizontal Menu into Slide-out Sidebar */
+  /* Morph Horizontal Menu into Slide-out Sidebar */
+  .main-menu {
+    position: fixed;
+    top: 64px;
+    left: -320px; /* Increased from -260px to fully hide it */
+    width: 260px;
+    height: calc(100vh - 64px);
+    background-color: var(--surface-white);
+    flex-direction: column;
+    margin-left: 0;
+    padding: 24px;
+    gap: 16px;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+    box-sizing: border-box; /* THIS IS THE MAGIC FIX */
+  }
+
+  /* Slide in when open */
+  .main-menu.open { left: 0; }
+
+  /* Show dark overlay behind menu */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 64px; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    z-index: 1000;
+  }
+}

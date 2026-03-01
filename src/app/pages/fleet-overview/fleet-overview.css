@@ -1,0 +1,393 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.page-header p {
+  margin-top: 8px;
+}
+
+.card {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+/* --- Filter Bar --- */
+.filter-card {
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.form-select {
+  padding: 10px 32px 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background-color: var(--surface-white);
+  cursor: pointer;
+  font-family: var(--font-family);
+}
+
+/* --- Table Styles --- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 16px 24px;
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.data-table td {
+  padding: 16px 24px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.text-right { text-align: right !important; }
+
+/* Vessel Cell Layout */
+.vessel-cell {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vessel-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-main);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.vessel-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.vessel-name { font-weight: 600; color: var(--text-primary); font-size: var(--text-sm); }
+.vessel-time { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 2px; }
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-badge.active {
+  background-color: var(--status-active-bg);
+  color: var(--status-active-text);
+}
+.status-badge.active .dot { background-color: var(--status-active-text); }
+
+.status-badge.maintenance {
+  background-color: var(--status-warning-bg);
+  color: var(--status-warning-text);
+}
+.status-badge.maintenance .dot { background-color: var(--status-warning-text); }
+
+/* Actions */
+.actions-cell {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.actions-cell .icon-btn { color: var(--text-tertiary); }
+.actions-cell .icon-btn:hover { color: var(--text-primary); }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.page-info { font-size: var(--text-sm); color: var(--text-secondary); }
+.page-info strong { color: var(--text-primary); font-weight: 600; }
+
+.page-controls { display: flex; gap: 8px; }
+
+.btn-page {
+  width: 32px;
+  height: 32px;
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.btn-page:hover { background-color: var(--bg-main); }
+
+/* --- Material Table Styles --- */
+/* --- Material Table Styles (in fleet-overview.component.css) --- */
+.table-responsive-wrapper {
+  width: 100%;
+  max-width: 100%; /* Force it to respect parent boundaries */
+  overflow-x: auto;
+  display: block; /* Required for max-width to work properly here */
+  -webkit-overflow-scrolling: touch; /* Enables smooth momentum scrolling on mobile */
+}
+
+table.mat-mdc-table {
+  width: 100%;
+  background: transparent;
+}
+
+/* Override standard material header styling */
+th.mat-mdc-header-cell {
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  color: var(--text-secondary) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px !important;
+  background-color: transparent !important;
+}
+
+/* Override standard material cell styling */
+td.mat-mdc-cell {
+  padding: 16px 24px !important;
+  font-size: var(--text-sm);
+  color: var(--text-secondary) !important;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.text-right { text-align: right !important; }
+
+/* Adjust mat-icon sizing inside custom buttons */
+.icon-btn mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Vessel Cell Layout */
+.vessel-cell {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vessel-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-main);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.vessel-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.vessel-name { font-weight: 600; color: var(--text-primary); font-size: var(--text-sm); }
+.vessel-time { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 2px; }
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-badge.active { background-color: var(--status-active-bg); color: var(--status-active-text); }
+.status-badge.active .dot { background-color: var(--status-active-text); }
+
+.status-badge.maintenance { background-color: var(--status-warning-bg); color: var(--status-warning-text); }
+.status-badge.maintenance .dot { background-color: var(--status-warning-text); }
+
+/* Actions - Let Material handle the buttons, just align them right */
+.actions-cell {
+  text-align: right;
+  white-space: nowrap; /* Prevents buttons from stacking on very small screens */
+}
+
+/* Optional: Slight scaling effect on hover for extra polish */
+.actions-cell button {
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+}
+.actions-cell button:hover {
+  transform: scale(1);
+}
+/* ========================================= */
+/* RESPONSIVE LAYOUT (TABLET & MOBILE)       */
+/* ========================================= */
+
+/* 1. Ensure the table forces a scrollbar on mobile instead of squishing text */
+table.mat-mdc-table {
+  width: 100%;
+  background: transparent;
+  min-width: 800px; /* Forces horizontal scroll on small screens */
+}
+
+/* Ensure the card hides the overflow so border-radius stays clean */
+.table-card {
+  overflow: hidden; 
+}
+
+/* 2. TABLET VIEW (max-width: 992px) */
+@media (max-width: 992px) {
+  .filter-card {
+    flex-wrap: wrap; /* Allows search and actions to stack if needed */
+  }
+  
+  .search-box {
+    max-width: 100%;
+    flex: 1 1 100%; /* Takes full width on tablet */
+  }
+
+  .filter-actions {
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
+/* 3. MOBILE VIEW (max-width: 768px) */
+@media (max-width: 768px) {
+  
+  /* Stack the Header and Button */
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch; /* Makes the button full width */
+  }
+
+  .page-header h1 {
+    font-size: var(--text-xl); /* Slightly smaller title for mobile */
+  }
+
+  .page-header .btn {
+    width: 100%;
+    height: 44px; /* Slightly taller for easy thumb tapping */
+  }
+
+  /* Stack and Grid the Filters */
+  .filter-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two dropdowns side-by-side */
+    gap: 12px;
+  }
+
+  .filter-actions .form-select {
+    width: 100%; /* Fill the grid columns */
+  }
+
+  .filter-actions .btn-outline {
+    grid-column: span 2; /* Filter button takes full width below dropdowns */
+    height: 44px;
+    justify-content: center;
+  }
+
+  /* Make table padding slightly smaller for mobile viewing */
+  th.mat-mdc-header-cell, 
+  td.mat-mdc-cell {
+    padding: 12px 16px !important;
+  }
+}
+.clickable {
+  cursor: pointer;
+  color: var(--primary-color) !important; /* Make it blue */
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.clickable:hover {
+  text-decoration: underline;
+  color: var(--primary-hover) !important;
+}
