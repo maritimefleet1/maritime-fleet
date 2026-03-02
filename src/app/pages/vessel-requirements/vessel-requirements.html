@@ -13,7 +13,7 @@
     <div class="sheet-navigation">
         <div class="tabs-wrapper">
             <div class="sheet-tab" *ngFor="let sheet of sheets" 
-                 [class.active]="activeSheet?.id === sheet.id"
+                 [class.active]="activeSheet.id === sheet.id"
                  (click)="selectSheet(sheet)">
                 {{ sheet.name }}
             </div>
@@ -40,8 +40,8 @@
                 <p>Fetching inventory data...</p>
             </div>
 
-            <table mat-table [dataSource]="activeSheet?.data || []"
-                *ngIf="!isLoadingItems && activeSheet?.data && activeSheet.data.length > 0" multiTemplateDataRows class="data-table">
+            <table mat-table [dataSource]="activeSheet.data || []"
+                *ngIf="!isLoadingItems && activeSheet.data && activeSheet.data.length > 0" multiTemplateDataRows class="data-table">
 
                 <ng-container matColumnDef="expand">
                     <th mat-header-cell *matHeaderCellDef class="col-expand"></th>
@@ -178,7 +178,7 @@
                 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
             </table>
 
-            <div class="empty-state-container" *ngIf="!isLoadingItems && (!activeSheet?.data || activeSheet.data.length === 0)">
+            <div class="empty-state-container" *ngIf="!isLoadingItems && (!activeSheet.data || activeSheet.data.length === 0)">
                 <mat-icon>inventory_2</mat-icon>
                 <h3>No Items Found</h3>
                 <p>This category is currently empty. Add a new requirement to get started.</p>
@@ -188,7 +188,7 @@
             </div>
         </div>
 
-        <div class="table-footer" *ngIf="!isLoadingItems && activeSheet?.data && activeSheet.data.length > 0">
+        <div class="table-footer" *ngIf="!isLoadingItems && activeSheet.data && activeSheet.data.length > 0">
             <div class="results-text">
                 SHOWING {{ activeSheet.data.length }} OF {{ totalItems }} ITEMS
             </div>
