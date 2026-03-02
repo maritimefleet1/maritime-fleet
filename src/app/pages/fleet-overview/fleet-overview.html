@@ -4,18 +4,17 @@
     <p>Manage inventory across the globe.</p>
   </div>
   <button class="btn btn-primary" (click)="openAddVesselDrawer()">
-    <mat-icon>add</mat-icon> Add Vessel
+    <mat-icon>add</mat-icon> <span>Add Vessel</span>
   </button>
 </div>
-
 <div class="card filter-card">
-  <div class="filter-actions" style="display: flex; gap: 15px; width: 100%;">
-    <div class="search-box" style="flex: 2;">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input type="text" placeholder="Search by Vessel Name" (keyup)="onSearch($event)">
-    </div>
-    
-    <select class="form-select" (change)="onStatusFilterChange($event)" style="flex: 1;">
+  <div class="search-box">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input type="text" placeholder="Search by Vessel Name" (keyup)="onSearch($event)">
+  </div>
+  
+  <div class="filter-actions">
+    <select class="form-select" (change)="onStatusFilterChange($event)">
       <option value="Active" selected>Active Fleet</option>
       <option value="Deleted">Archived (Deleted)</option>
       <option value="ALL">Show All Records</option>
@@ -24,6 +23,7 @@
 </div>
 
 <div class="card table-card">
+  <div class="table-responsive-wrapper">
   <table mat-table [dataSource]="dataSource" class="data-table">
     <ng-container matColumnDef="vesselName">
       <th mat-header-cell *matHeaderCellDef> VESSEL NAME </th>
@@ -70,7 +70,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+  </div>
   <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" (page)="handlePageEvent($event)"></mat-paginator>
 </div>
 

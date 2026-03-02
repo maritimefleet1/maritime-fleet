@@ -5,13 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from '../../services/api.service';
 import { Vessel, ApiResponse } from '../../models/vessel.model';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; 
 
 @Component({
   selector: 'app-add-vessel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule, MatSnackBarModule],
   templateUrl: './add-vessel.html',
   styleUrls: ['./add-vessel.css']
 })
@@ -26,7 +26,8 @@ export class AddVesselComponent implements OnChanges {
   vesselType: string = 'Container Ship';
   isSubmitting: boolean = false;
 
-  constructor(private apiService: ApiService, private toastr: ToastrService) {}
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar,
+) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['editData'] && this.editData) {
@@ -52,7 +53,7 @@ export class AddVesselComponent implements OnChanges {
 
   saveVessel() {
     if (!this.vesselName || this.vesselName.trim() === '') {
-      this.toastr.warning('Vessel Name is mandatory', 'Validation Error');
+      this.showSnackbar('Vessel Name is mandatory', 'Warning');
       return;
     }
 
@@ -75,14 +76,21 @@ export class AddVesselComponent implements OnChanges {
     request$.subscribe({
       next: (res) => {
         const action = this.editData ? 'updated' : 'added';
-        this.toastr.success(`Vessel ${this.vesselName} ${action} successfully!`);
+        this.showSnackbar(`Vessel ${this.vesselName} ${action} successfully!`, 'Success');
         this.vesselSaved.emit();
         this.closeDrawer();
       },
       error: (err) => {
-        this.toastr.error(err.message || 'Server error occurred');
+        this.showSnackbar(err.message || 'Server error occurred', 'Error');
         this.isSubmitting = false; 
       }
+    });
+  }
+   private showSnackbar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
     });
   }
 }

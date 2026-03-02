@@ -315,79 +315,74 @@ table.mat-mdc-table {
 .table-card {
   overflow: hidden; 
 }
-
-/* 2. TABLET VIEW (max-width: 992px) */
-@media (max-width: 992px) {
-  .filter-card {
-    flex-wrap: wrap; /* Allows search and actions to stack if needed */
-  }
-  
-  .search-box {
-    max-width: 100%;
-    flex: 1 1 100%; /* Takes full width on tablet */
-  }
-
-  .filter-actions {
-    flex: 1;
-    justify-content: flex-end;
-  }
+/* --- Desktop Default Layout --- */
+.filter-card {
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
-/* 3. MOBILE VIEW (max-width: 768px) */
-@media (max-width: 768px) {
-  
-  /* Stack the Header and Button */
-  .page-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: stretch; /* Makes the button full width */
-  }
+.search-box { flex: 2; }
+.filter-actions { flex: 1; }
 
-  .page-header h1 {
-    font-size: var(--text-xl); /* Slightly smaller title for mobile */
-  }
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
-  .page-header .btn {
-    width: 100%;
-    height: 44px; /* Slightly taller for easy thumb tapping */
-  }
-
-  /* Stack and Grid the Filters */
+/* --- Tablet View (max-width: 992px) --- */
+@media (max-width: 992px) {
   .filter-card {
+    gap: 12px;
+  }
+  
+  .search-box { flex: 1.5; }
+}
+
+/* --- Mobile View (max-width: 600px) --- */
+@media (max-width: 600px) {
+  /* 1. Stack Header and Make Button Full Width */
+  .page-header {
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
+    margin-bottom: 16px;
   }
 
-  .filter-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two dropdowns side-by-side */
-    gap: 12px;
+  .page-header p {
+    font-size: var(--text-sm);
   }
 
-  .filter-actions .form-select {
-    width: 100%; /* Fill the grid columns */
-  }
-
-  .filter-actions .btn-outline {
-    grid-column: span 2; /* Filter button takes full width below dropdowns */
-    height: 44px;
+  .btn-primary {
+    width: 100%;
     justify-content: center;
+    padding: 12px; /* Larger tap target */
   }
 
-  /* Make table padding slightly smaller for mobile viewing */
+  /* 2. Stack Search and Filter Select */
+  .filter-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .search-box, .filter-actions {
+    width: 100%;
+  }
+
+  /* 3. Table Adjustments */
   th.mat-mdc-header-cell, 
   td.mat-mdc-cell {
-    padding: 12px 16px !important;
+    padding: 12px 8px !important; /* Tighter padding for mobile */
   }
-}
-.clickable {
-  cursor: pointer;
-  color: var(--primary-color) !important; /* Make it blue */
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.clickable:hover {
-  text-decoration: underline;
-  color: var(--primary-hover) !important;
+
+  /* Hide less critical columns on very small screens if necessary */
+  /* Example: .mat-column-type { display: none; } */
+  
+  .vessel-icon {
+    width: 32px;
+    height: 32px;
+  }
 }

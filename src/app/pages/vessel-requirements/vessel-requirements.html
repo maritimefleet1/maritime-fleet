@@ -5,9 +5,9 @@
             <p class="subtitle">Monitoring inventory status for IMO #{{ voyageNumber }}</p>
         </div>
         <div class="header-actions">
-            <button class="btn btn-outline" (click)="generatePrintReport()"><mat-icon>download</mat-icon> Export CSV</button>
+            <button class="btn btn-outline" (click)="generatePrintReport()"><mat-icon>print</mat-icon> Print  </button>
             <button class="btn btn-primary" (click)="addItem()"><mat-icon>add</mat-icon> New Requisition</button>
-        </div>
+    </div>
     </div>
 
     <div class="sheet-navigation">
@@ -182,7 +182,7 @@
                 <mat-icon>inventory_2</mat-icon>
                 <h3>No Items Found</h3>
                 <p>This category is currently empty. Add a new requirement to get started.</p>
-                <button class="btn btn-primary" (click)="addItem()">
+                <button class="btn btn-primary add-btn" (click)="addItem()">
                     <mat-icon>add</mat-icon> Add First Item
                 </button>
             </div>

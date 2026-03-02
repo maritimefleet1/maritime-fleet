@@ -96,9 +96,9 @@
 
 .tabs-wrapper {
     display: flex;
-    align-items: center;
+    align-items: center; /* This perfectly centers the button with the tab text */
     gap: 24px;
-    margin-bottom: -2px; /* Pulls active border down over the container border */
+    margin-bottom: -2px; 
 }
 
 .sheet-tab {
@@ -127,10 +127,9 @@
     font-size: 13px;
     font-weight: 600;
     padding: 0 12px;
-    margin-bottom: 10px;
+    margin-bottom: 0; /* <-- FIX: Removed the 10px margin so it drops down to center */
     transition: all 0.2s;
 }
-
 .add-sheet-btn mat-icon { font-size: 16px; width: 16px; height: 16px; }
 .add-sheet-btn:hover { background-color: #EFF6FF; color: var(--primary-blue); border-color: var(--primary-blue); }
 
@@ -382,5 +381,85 @@ tr.detail-row { height: 0; }
         width: 100%;
         border-collapse: collapse;
         table-layout: auto; 
+    }
+}
+/* --- Polish the button wrapper --- */
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Perfect spacing between icon and text */
+  padding: 10px 20px; /* Slightly thicker padding for a primary call-to-action */
+  font-weight: 600; /* Make the text pop slightly more */
+  letter-spacing: 0.3px;
+}
+
+/* --- Perfectly scale and align the Material Icon --- */
+.add-btn mat-icon {
+  font-size: 20px; /* Downscale from default 24px */
+  width: 20px;     /* Force bounding box to match font size */
+  height: 20px;
+  line-height: 20px; /* Perfectly centers the icon vertically */
+  margin: 0;       /* Strips out any accidental browser margins */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ========================================= */
+/* MOBILE RESPONSIVE LAYOUT                  */
+/* ========================================= */
+@media (max-width: 768px) {
+    /* 1. Stack the header content vertically */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start; /* Align text to the left */
+        gap: 16px;
+        padding: 16px 16px 12px 16px; /* Reduce horizontal padding for mobile */
+    }
+
+    /* 2. Scale down the typography slightly to prevent awkward wrapping */
+    .header-titles h1 {
+        font-size: 18px; 
+        line-height: 1.3;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    /* 3. Make the action buttons span the full width */
+    .header-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Puts Export and Add side-by-side equally */
+        gap: 12px;
+    }
+
+    /* 4. Increase the touch target size for mobile thumbs */
+    .header-actions .btn {
+        width: 100%;
+        padding: 10px 8px; /* Taller padding */
+        font-size: 12px;
+        justify-content: center; /* Ensures text and icon stay centered */
+    }
+
+    /* 5. BONUS FIX: Ensure the Sheet Tabs don't squish and can be swiped horizontally */
+    .sheet-navigation {
+        padding: 0 16px;
+        overflow-x: auto; /* Allows swiping left/right */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+    
+    .tabs-wrapper {
+        min-width: max-content; /* Prevents tabs from shrinking */
+        padding-bottom: 2px; /* Leaves room for the active border */
+    }
+}
+
+/* For very small screens (like older iPhones), stack the buttons completely */
+@media (max-width: 400px) {
+    .header-actions {
+        grid-template-columns: 1fr; /* Stacks Export on top of Add */
     }
 }

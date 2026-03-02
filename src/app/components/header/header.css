@@ -119,3 +119,11 @@
     z-index: 1000;
   }
 }
+/* Show dark overlay behind menu */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 64px; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    z-index: 990; /* <-- FIX: Lowered from 1000 so it sits under the navbar */
+  }

@@ -14,11 +14,8 @@
     </div>
 
     <nav class="main-menu" [class.open]="isMobileMenuOpen">
-      <!-- <a href="#" class="nav-link" (click)="closeMenu()">Dashboard</a> -->
-      <a href="#" class="nav-link active" (click)="closeMenu()">Fleet</a>
-      <a href="#" class="nav-link" (click)="closeMenu()">Reports</a>
-      <!-- <a href="#" class="nav-link" (click)="closeMenu()">Procurement</a>
-      <a href="#" class="nav-link" (click)="closeMenu()">Settings</a> -->
+      <a routerLink="/fleet" routerLinkActive="active" class="nav-link" (click)="closeMenu()">Fleet</a>
+      <a routerLink="/reports" routerLinkActive="active" class="nav-link" (click)="closeMenu()">Reports</a>
     </nav>
   </div>
 
